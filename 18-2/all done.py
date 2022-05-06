@@ -1,5 +1,5 @@
 import opc ,time
-import numpy
+
 #setup
 client = opc.Client('localhost:7890')
 
