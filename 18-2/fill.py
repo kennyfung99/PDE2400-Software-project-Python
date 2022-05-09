@@ -1,6 +1,6 @@
 from random import randint
 import opc, time, math
-import numpy
+
 import threading
 import time
 import sys

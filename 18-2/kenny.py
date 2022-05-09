@@ -26,17 +26,19 @@ color_6=(120, 2, 2)
 
 
 
+
+
 def Kenny():
     for x in range(0,80):
         pixels = [ (0,0,0) ] * numLEDs
         #K
         for i in range(5):                        #the frist line to be red and move forword by 1 
-            pixels[60*i + x] = red
-        pixels[3+x] = red
-        pixels[62+x] = red
-        pixels[121+x] = red
-        pixels[182+x] = red
-        pixels[243+x] = red
+         pixels[60*i + x] = red
+         pixels[3+x] = red
+         pixels[62+x] = red
+         pixels[121+x] = red
+         pixels[182+x] = red
+         pixels[243+x] = red
         #E
         for i in range(5):                         
             pixels[ 60*i+7 + x] = pink
@@ -72,9 +74,8 @@ def Kenny():
             pixels[ 60*i+154 + x] = purple
         client.put_pixels(pixels)
         time.sleep(0.1)
-        client.put_pixels(red)
+        
     
 
 pixels = [ (0,0,0) ] * numLEDs
-
 Kenny()
