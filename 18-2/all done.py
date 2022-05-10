@@ -1,4 +1,4 @@
-import opc ,time
+import opc ,time,numpy
 
 #setup
 client = opc.Client('localhost:7890')
@@ -240,7 +240,7 @@ def Kenny():
         client.put_pixels(pixels)
         time.sleep(0.1)
 def P1():
-    color=[(252, 3, 7),(17, 0, 255),(255,255,255),(255,192,203),(148,0,211),(251,255,0),(245, 0, 0),(191, 0, 0),(166, 0, 0),(120, 2, 2),(255, 0, 238),(255, 133, 247),(65, 0, 140),(101, 0, 217),(145, 59, 245)]*360
+    color=[(red),(blue),(255,255,255),(255,192,203),(148,0,211),(251,255,0),(245, 0, 0),(191, 0, 0),(166, 0, 0),(120, 2, 2),(255, 0, 238),(255, 133, 247),(65, 0, 140),(101, 0, 217),(145, 59, 245)]*360
     for i in range (20):
         
         #print(color)
@@ -254,11 +254,11 @@ def P1():
 while yes == True:
     print('welcome to the LED show!'
         '\n choose the following option?'
-        '\n a}color wave'
-        '\n b}backward fill'
+        '\n a}color wave'         #1
+        '\n b}backward fill'      #2
         '\n c}word-hi'
-        '\n d}word-kenny'
-        '\n e}Patterm 1'
+        '\n d}word-kenny'         #4
+        '\n e}Patterm 1'          #3
         '\n f}show all'
         )
     
