@@ -68,7 +68,7 @@ def backward_fill_bule():
         pixels[x] = bule                                                                                  #  it make  forward direction  from 1 to  360 led 
         pixels[number_LED - x - 1] = light_bule                                                             # it make to gobackward direction from 360 to  1 led
         client.put_pixels(pixels)
-        time.sleep(0.05)
+        time.sleep(0.02)
 #game LED-----------------------------       
 def Fire():
     pixels = [ (0,0,0) ] * numLEDs
@@ -321,7 +321,7 @@ def Game():
     Choice = input('Choice: ')
     if Choice == "1":
       Instructions()
-      break
+      continue
   
     elif Choice == "2":
       Two_Player()
@@ -393,7 +393,7 @@ def choose_card(player):
                 return (card_choice-1)
                 break
 
-            else:
+            else:                       #anything else entered will have this error
                 print ("Sorry please enter a number from 1 to 5: ")
                 
         #Exception handling if input is a string instead of integer
@@ -552,22 +552,14 @@ window.rowconfigure(2, weight = 3)
 
 
 #widgets/M:
-Animations1_button = tk.Button(window, text = 'RGB light ', command = RGB)
+Animations1_button = tk.Button(window, text = 'RGB light ', command = RGB)      #button for RGB
 Animations2_button = tk.Button(window, text = 'forward and backward fill ', command = backward_fill_bule)
 Animations3_button = tk.Button(window, text = 'ice ', command = Ice)
 Animations4_button = tk.Button(window, text = 'Fire ', command = Fire)
 Animations6_button = tk.Button(window, text = 'Winner ', command = Winner)
 Animations7_button = tk.Button(window, text = 'Wipe screen ', command = Wipe_screen)
-
-
 Animations5_button = tk.Button(window, text = 'Game ', command = Game)
-
-
-
-
-exit_button = tk.Button(window, text = 'Exit', command = window.destroy) #destroy the window, closing the program.
-
-
+exit_button = tk.Button(window, text = 'Exit', command = window.destroy)          #closing the program.
 
 #layout:
 Animations1_button.grid(column = 0, row = 1, padx = 5, pady = 5)
@@ -577,8 +569,6 @@ Animations4_button.grid(column = 0, row = 4, padx = 5, pady = 5)
 Animations5_button.grid(column = 0, row = 7, padx = 5, pady = 5)
 Animations6_button.grid(column = 0, row = 6, padx = 5, pady = 5)
 Animations7_button.grid(column = 0, row = 5, padx = 5, pady = 5)
-
 exit_button.grid(column = 5, row = 7, sticky='se', padx = 5, pady = 5)
-
 
 window.mainloop()
