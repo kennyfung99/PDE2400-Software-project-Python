@@ -62,14 +62,20 @@ def Winner():
         pixels[159+x]= pink
         pixels[222+x]= pink
         for i in range(5):  pixels[60*i+43+ x] = pink
+        #E
+        for i in range(5):  pixels[60*i+46+ x] = orange
+        for i in range(5):  pixels[i+46+x] = orange
+        for i in range(5):  pixels[i+166+x] = orange
+        for i in range(5):  pixels[i+286+x] = orange
         #R
-        for i in range(5):  pixels[60*i+48+ x] = purple
-        for i in range(4):  pixels[i+49+x] = purple
-        for i in range(4):  pixels[i+60*2+49+x] = purple
-        pixels[60*1+52+x]= purple
-        pixels[60*3+51+x]= purple
-        pixels[60*4+52+x]= purple
+        for i in range(5):  pixels[60*i+53+ x] = purple
+        for i in range(4):  pixels[i+54+x] = purple
+        for i in range(4):  pixels[i+60*2+54+x] = purple
+        pixels[60*1+57+x]= purple
+        pixels[60*3+56+x]= purple
+        pixels[60*4+57+x]= purple
         client.put_pixels(pixels)
         time.sleep(0.1)
         
+
 Winner()

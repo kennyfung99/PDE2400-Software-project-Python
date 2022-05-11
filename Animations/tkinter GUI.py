@@ -23,18 +23,18 @@ light_bule=(0, 234, 255)
 bule=(0, 64, 255)
 light_purple=(145, 59, 245)
 purple=(101, 0, 217)
-dark_purplr=(65, 0, 140)
+dark_purple=(65, 0, 140)
 light_pink=(255, 133, 247)
 pink=(255, 0, 238)
 white=(255, 255, 255)
 
 #tkinter:
 import tkinter as tk
+from tkinter import *
 
 window = tk.Tk()  #this will generate the window for GUI.
 window.title('Software project Python')
 window.configure(background="Black")
-
 
 #setup for RGB
 colour = 1.0 ##maximum colour
@@ -51,18 +51,15 @@ pixels = [ (0,0,0) ] * numLEDs
 
 def RGB():
     for hue in range(360):
-        rgb_fractional = colorsys.hsv_to_rgb(hue/360.0, colour, Brightness) #colorsys returns floats between 0 and 1
-    
-        r_float = rgb_fractional[0] #extract said floating point numbers
-        g_float = rgb_fractional[1]
-        b_float = rgb_fractional[2]
-
-        rgb = (r_float*255, g_float*255, b_float*255) #make new tuple with corrected values
-   
-        leds[hue] = rgb 
+        rgb_light = colorsys.hsv_to_rgb(hue/360.0, colour, Brightness) 
+        r_float = rgb_light[0] 
+        g_float = rgb_light[1]
+        b_float = rgb_light[2]
+        new_rgb = (r_float*255, g_float*255, b_float*255) #make new tuple with corrected values
+        leds[hue] = new_rgb 
         client.put_pixels(leds) #send out the leds
-
-        sleep(0.02) #20ms
+        sleep(0.03) #30ms
+        
         
 #function (backward_fill_bule)      
 def backward_fill_bule():
@@ -246,15 +243,35 @@ def Winner():
         pixels[159+x]= pink
         pixels[222+x]= pink
         for i in range(5):  pixels[60*i+43+ x] = pink
+        #E
+        for i in range(5):  pixels[60*i+46+ x] = orange
+        for i in range(5):  pixels[i+46+x] = orange
+        for i in range(5):  pixels[i+166+x] = orange
+        for i in range(5):  pixels[i+286+x] = orange
         #R
-        for i in range(5):  pixels[60*i+48+ x] = purple
-        for i in range(4):  pixels[i+49+x] = purple
-        for i in range(4):  pixels[i+60*2+49+x] = purple
-        pixels[60*1+52+x]= purple
-        pixels[60*3+51+x]= purple
-        pixels[60*4+52+x]= purple
+        for i in range(5):  pixels[60*i+53+ x] = purple
+        for i in range(4):  pixels[i+54+x] = purple
+        for i in range(4):  pixels[i+60*2+54+x] = purple
+        pixels[60*1+57+x]= purple
+        pixels[60*3+56+x]= purple
+        pixels[60*4+57+x]= purple
         client.put_pixels(pixels)
         time.sleep(0.1)
+        
+#This will wipe the screen with purple---
+def Wipe_screen():
+    pixels = [ (0,0,0) ] * numLEDs
+    for x in range(60):
+            pixels[x]=dark_purple
+            pixels[x+60]=purple
+            pixels[x+120]=dark_purple
+            pixels[x+180]=purple
+            pixels[x+240]=dark_purple
+            pixels[x+300]=purple
+            
+            client.put_pixels(pixels)
+            time.sleep(0.10)
+
         
 
 
@@ -303,7 +320,8 @@ def Game():
   
     Choice = input('Choice: ')
     if Choice == "1":
-      print('How to play')
+      Instructions()
+      break
   
     elif Choice == "2":
       Two_Player()
@@ -318,6 +336,31 @@ def Game():
     
     else: 
       print ("Sorry please enter a number from 1 to 4: ")
+
+def Instructions():
+    print(
+    """
+______________________________________________________________________
+| How to play:                                                        |
+| Each round, you are given 5 random cards to choose from.            |
+| They are numbered from 1 to 10 and can be either Fire, water or Ice.|
+| Each player will choose a card for each round                       |
+|                                                                     |
+| For your card to win a round:                                       |
+| |-Fire wins against Ice                                             |
+| -Ice wins against Water                                             |
+| -Water wins against Fire                                            |
+|                                                                     |
+| If you both choose the same symbol then the highest value card wins.|
+| If both the element and number are the same, you both get a point.  |
+| The winner puts the card into their card collection.                |
+|                                                                     | 
+| To win the game:                                                    |
+| -Have 1 of each symbol(Fire, Ice, Water) in your card collection    |
+| -Have 4 of the same element in your card collection                 |
+|_____________________________________________________________________|
+
+""")
 
 def get_player(player):
   if player == 0:
@@ -402,31 +445,37 @@ def compare_cards(first, second):
     print ("Player 1 scores a point")
     get_player(first).update({"Fire": +1})
     Fire()
+    Wipe_screen()
     
   elif (get_player(first)["card_symbol"] == "Fire" and get_player(second)["card_symbol"] == "Water"):
     print (secondStr +" scores a point")
     get_player(second).update({"Water": +1})
     Water()
+    Wipe_screen()
 
   elif (get_player(first)["card_symbol"] == "Water" and get_player(second)["card_symbol"] == "Fire"):
     print ("Player 1 scores a point")
     get_player(first).update({"Water": +1})
     Water()
+    Wipe_screen()
 
   elif (get_player(first)["card_symbol"] == "Water" and get_player(second)["card_symbol"] == "Ice"):
     print (secondStr +" scores a point")
     get_player(second).update({"Ice": +1})
     Ice()
+    Wipe_screen()
 
   elif (get_player(first)["card_symbol"] == "Ice" and get_player(second)["card_symbol"] == "Water"):
     print ("Player 1 scores a point")
     get_player(first).update({"Ice": +1})
     Ice()
+    Wipe_screen()
 
   elif (get_player(first)["card_symbol"] == "Ice" and get_player(second)["card_symbol"] == "Fire"):
     print (secondStr +" scores a point")
     get_player(second).update({"Fire": +1})
     Fire()
+    Wipe_screen()
 
   
   elif (get_player(first)["card_symbol"] == get_player(second)["card_symbol"]):
@@ -507,6 +556,10 @@ Animations1_button = tk.Button(window, text = 'RGB light ', command = RGB)
 Animations2_button = tk.Button(window, text = 'forward and backward fill ', command = backward_fill_bule)
 Animations3_button = tk.Button(window, text = 'ice ', command = Ice)
 Animations4_button = tk.Button(window, text = 'Fire ', command = Fire)
+Animations6_button = tk.Button(window, text = 'Winner ', command = Winner)
+Animations7_button = tk.Button(window, text = 'Wipe screen ', command = Wipe_screen)
+
+
 Animations5_button = tk.Button(window, text = 'Game ', command = Game)
 
 
@@ -514,13 +567,18 @@ Animations5_button = tk.Button(window, text = 'Game ', command = Game)
 
 exit_button = tk.Button(window, text = 'Exit', command = window.destroy) #destroy the window, closing the program.
 
+
+
 #layout:
 Animations1_button.grid(column = 0, row = 1, padx = 5, pady = 5)
 Animations2_button.grid(column = 0, row = 2, padx = 5, pady = 5)
 Animations3_button.grid(column = 0, row = 3, padx = 5, pady = 5)
 Animations4_button.grid(column = 0, row = 4, padx = 5, pady = 5)
-Animations5_button.grid(column = 0, row = 5, padx = 5, pady = 5)
-exit_button.grid(column = 5, row = 7, sticky='e', padx = 5, pady = 5)
+Animations5_button.grid(column = 0, row = 7, padx = 5, pady = 5)
+Animations6_button.grid(column = 0, row = 6, padx = 5, pady = 5)
+Animations7_button.grid(column = 0, row = 5, padx = 5, pady = 5)
+
+exit_button.grid(column = 5, row = 7, sticky='se', padx = 5, pady = 5)
 
 
 window.mainloop()
